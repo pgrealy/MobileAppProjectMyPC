@@ -18,4 +18,12 @@ export const routes: Routes = [
     path: 'trending-movies',
     loadComponent: () => import('./trending-movies/trending-movies.page').then( m => m.TrendingMoviesPage)
   },
+  {
+    path: 'moviedetails',
+    loadComponent: () => import('./moviedetails/moviedetails.page').then( m => m.MoviedetailsPage)
+  },
+  {
+    path: 'details',
+    loadComponent: () => import('./details/details.page').then( m => m.DetailsPage)
+  },
 ];

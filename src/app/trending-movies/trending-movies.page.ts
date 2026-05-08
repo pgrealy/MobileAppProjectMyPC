@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonCardTitle, IonCard, IonCardHeader, IonCardSubtitle, IonCardContent } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonCardTitle, IonCard, IonCardHeader, IonCardSubtitle, IonCardContent, IonList, IonItem, IonButton } from '@ionic/angular/standalone';
 import { Data } from '../services/data';
 import { MyHttp } from '../services/my-http';
 import { HttpOptions } from '@capacitor/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-trending-movies',
   templateUrl: './trending-movies.page.html',
   styleUrls: ['./trending-movies.page.scss'],
   standalone: true,
- imports: [IonCardContent, IonCardSubtitle, IonCardHeader, IonCard, IonCardTitle, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+ imports: [IonButton, IonItem, IonList, IonCardContent, IonCardSubtitle, IonCardHeader, IonCard, IonCardTitle, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
 })
 export class TrendingMoviesPage implements OnInit {
 
@@ -23,7 +24,7 @@ export class TrendingMoviesPage implements OnInit {
    
   }
 
-  constructor(private ds:Data, private mhs:MyHttp) { }
+  constructor(private router:Router, private ds:Data, private mds: Data, private mhs:MyHttp) { }
 
   ngOnInit() {
     this.getKW();
@@ -33,9 +34,19 @@ export class TrendingMoviesPage implements OnInit {
     let result = await this.mhs.get(this.options);
     this.trendingMovieInfo = result.data.results;
     console.log(JSON.stringify(this.trendingMovieInfo));
-
-
   }
+
+  async openMovieDetails(trendingMovie:any) {
+    await this.mds.set("movie", trendingMovie);
+    console.log(movie)
+    this.router.navigate(['./moviedetails']);
+  }
+
+
+
+
+
+
   //  this.keyword = await this.ds.get('kw');
  //  this.options.url = this.options.url.concat(this.keyword);
    // let result = this.options.url;
