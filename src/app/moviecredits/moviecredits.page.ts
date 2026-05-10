@@ -45,7 +45,7 @@ export class MoviecreditsPage implements OnInit {
   }
 
 
-  /*  method to get selected movie details from browser storage */
+  /*  method to get more detail for the selected movie details from storage */
 
   async getMovieCreditsFromStorage() {
     this.movieDetails = await this.mds.get("movie");

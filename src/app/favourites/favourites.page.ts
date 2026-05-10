@@ -1,7 +1,7 @@
 
 /*  code for this snippet obtained from https://ionicacademy.com/store-data-inside-ionic/ */
 
-
+/*
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -17,7 +17,7 @@ import { Storage } from '@ionic/storage';
   standalone: true,
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
 })
-
+/*
 const STORAGE_KEY = 'favoriteFilms';
  
 @Injectable()
@@ -58,3 +58,4 @@ export class FavouritesPage implements OnInit {
   }
  
 }
+ */
