@@ -1,3 +1,6 @@
+/* Coding taken and adapted from examples from class lectures */
+
+
 import { Injectable } from '@angular/core';
 import { CapacitorHttp, HttpOptions } from '@capacitor/core';
 

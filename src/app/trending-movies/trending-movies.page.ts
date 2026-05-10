@@ -1,3 +1,6 @@
+/* Coding taken and adapted from examples from class lectures */
+
+
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -12,7 +15,7 @@ import { Router } from '@angular/router';
   templateUrl: './trending-movies.page.html',
   styleUrls: ['./trending-movies.page.scss'],
   standalone: true,
- imports: [IonButton, IonItem, IonList, IonCardContent, IonCardSubtitle, IonCardHeader, IonCard, IonCardTitle, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+ imports: [IonCardHeader, IonCard, IonCardTitle, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
 })
 export class TrendingMoviesPage implements OnInit {
 
@@ -24,11 +27,17 @@ export class TrendingMoviesPage implements OnInit {
    
   }
 
-  constructor(private router:Router, private ds:Data, private mds: Data, private mhs:MyHttp) { }
+  constructor(private router:Router, private ds:Data, private mds: Data, private mhs:MyHttp) {
+    console.log("TrendingMoviesPage constructor()")
+   }
 
   ngOnInit() {
+    console.log("TrendingMoviesPage ngOnInit()")
     this.getKW();
   }
+
+
+  /* method based on blank input to launch trending movies */
 
   async getKW() {
     let result = await this.mhs.get(this.options);
@@ -36,22 +45,27 @@ export class TrendingMoviesPage implements OnInit {
     console.log(JSON.stringify(this.trendingMovieInfo));
   }
 
-  async openMovieDetails(trendingMovie:any) {
-    await this.mds.set("movie", trendingMovie);
-    console.log(movie)
+  async openTrendingMovieDetails(trendingMovie:any) {
+    await this.mds.set("trendingMovie", trendingMovie);
+    console.log(trendingMovie)
     this.router.navigate(['./moviedetails']);
   }
 
-
-
-
-
-
-  //  this.keyword = await this.ds.get('kw');
- //  this.options.url = this.options.url.concat(this.keyword);
-   // let result = this.options.url;
-    //this.movieInfo = result.data.results;
-    //console.log(JSON.stringify(this.movieInfo));
-  //}
+/* ionic lifecycle hooks */  
+  ionViewWillEnter() { 
+    console.log("TrendingMoviesPage ionViewWillEnter()") 
+  } 
+  ionViewDidEnter() { 
+    console.log("TrendingMoviesPage ionViewDidEnter()") 
+  } 
+  ionViewWillLeave() { 
+    console.log("TrendingMoviesPage ionViewWillLeave()") 
+  } 
+  ionViewDidLeave() { 
+    console.log("TrendingMoviesPage ionViewDidLeave()") 
+  } 
+  ngOnDestroy() { 
+    console.log("TrendingMoviesPage ngOnDestroy()") 
+  } 
 
 }

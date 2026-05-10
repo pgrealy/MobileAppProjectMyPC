@@ -1,3 +1,7 @@
+
+/* Coding taken and adapted from examples from class lectures */
+
+
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
 

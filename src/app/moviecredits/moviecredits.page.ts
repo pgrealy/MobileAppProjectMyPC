@@ -1,23 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonItem, IonList, IonButton, IonCardTitle, IonCardHeader, IonCard } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonItem, IonList, IonButton, IonCardTitle, IonCardHeader, IonCard, IonLabel } from '@ionic/angular/standalone';
 import { Data } from '../services/data';
 import { Router } from '@angular/router';
 import { HttpOptions } from '@capacitor/core';
 import { MyHttp } from '../services/my-http';
 
 @Component({
-  selector: 'app-moviedetails',
-  templateUrl: './moviedetails.page.html',
-  styleUrls: ['./moviedetails.page.scss'],
+  selector: 'app-moviecredits',
+  templateUrl: './moviecredits.page.html',
+  styleUrls: ['./moviecredits.page.scss'],
   standalone: true,
-  imports: [IonCard, IonCardHeader, IonCardTitle, IonButton, IonList, IonItem, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [IonLabel, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonItem, IonList, IonButton, IonCardTitle, IonCardHeader, IonCard]
 })
+export class MoviecreditsPage implements OnInit {
 
-export class MoviedetailsPage implements OnInit {
-
-  movieInfo!:any;
   apiKey="a24667b41cc03c35fa81cb81e7ec8d40"
   movieDetails: any = {
     original_title: ""
@@ -38,38 +36,37 @@ export class MoviedetailsPage implements OnInit {
 
 
   constructor(private router:Router, private mds:Data, private mhs:MyHttp) {
-    console.log("MoviedetailsPage constructor()")
+    console.log("MoviecreditsPage constructor()")
    }
 
   ngOnInit() {
-    console.log("MoviedetailsPage ngOnInit()")
-    this.getMovieDetailsFromStorage();
+    console.log("MoviecreditsPage ngOnInit()")
+    this.getMovieCreditsFromStorage();
   }
 
 
   /*  method to get selected movie details from browser storage */
 
-  async getMovieDetailsFromStorage() {
+  async getMovieCreditsFromStorage() {
     this.movieDetails = await this.mds.get("movie");
     this.movieId = this.movieDetails.id;
     
-    console.log(JSON.stringify(this.optionsCredits.url));
+    this.optionsCredits.url = this.optionsCredits.url.concat(this.movieDetails.id + "/credits?api_key=" + this.apiKey);
+    let result = await this.mhs.get(this.optionsCredits);
+    this.movieCredits = result.data.cast;
+
+   
+    /* console.log(JSON.stringify(this.optionsCredits.url)); */
     console.log(JSON.stringify(this.movieCredits));
-    console.log(JSON.stringify(this.movieDetails.overview));
     console.log(JSON.stringify(this.movieId));
     
   
-    for(const attr in this.movieDetails) {
+    for(const attr in this.movieCredits) {
       this.movieAttrs.push(attr);
     }
     console.log(JSON.stringify(this.movieAttrs));
   }
 
-  async openMovieCreditDetails(movieId:any) {
-    await this.mds.set("movieId", movieId);
-    console.log(movieId)
-    this.router.navigate(['./moviecredits']);
-  }
 
   /* Method to route to the home page */
 
@@ -80,19 +77,19 @@ export class MoviedetailsPage implements OnInit {
 
     /* ionic lifecycle hooks */  
   ionViewWillEnter() { 
-    console.log("MoviedetailsPage ionViewWillEnter()") 
+    console.log("MoviecreditsPage ionViewWillEnter()") 
   } 
   ionViewDidEnter() { 
-    console.log("MoviedetailsPage ionViewDidEnter()") 
+    console.log("MoviecreditsPage ionViewDidEnter()") 
   } 
   ionViewWillLeave() { 
-    console.log("MoviedetailsPage ionViewWillLeave()") 
+    console.log("MoviecreditsPage ionViewWillLeave()") 
   } 
   ionViewDidLeave() { 
-    console.log("MoviedetailsPage ionViewDidLeave()") 
+    console.log("MoviecreditsPage ionViewDidLeave()") 
   } 
   ngOnDestroy() { 
-    console.log("MoviedetailsPage ngOnDestroy()") 
+    console.log("MoviecreditsPage ngOnDestroy()") 
   }
 
 }

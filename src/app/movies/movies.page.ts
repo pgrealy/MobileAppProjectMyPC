@@ -1,3 +1,6 @@
+/* Coding taken and adapted from examples from class lectures */
+
+
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -12,7 +15,7 @@ import { HttpOptions } from '@capacitor/core';
   templateUrl: './movies.page.html',
   styleUrls: ['./movies.page.scss'],
   standalone: true,
-  imports: [IonIcon, IonButton, IonCardContent, IonCardSubtitle, IonCardHeader, IonCard, IonCardTitle, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [IonCardHeader, IonCard, IonCardTitle, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
 })
 export class MoviesPage implements OnInit {
 
@@ -24,33 +27,49 @@ export class MoviesPage implements OnInit {
    
   }
 
-  constructor(private router:Router, private ds:Data, private mds: Data, private mhs:MyHttp) { }
+  constructor(private router:Router, private ds:Data, private mds: Data, private mhs:MyHttp) {
+    console.log("MoviesPage constructor()")
+   }
 
   ngOnInit() {
+    console.log("MoviesPage ngOnInit()")
     this.getKW();
   }
 
 
+  /* method based on user keyword input to display movies with keyword */
 
   async getKW() {
     this.keyword = await this.ds.get('kw');
     this.options.url = this.options.url.concat(this.keyword + "&api_key=" + this.apiKey);
-    //this.movieInfo = await this.mhs.get(this.options);
     let result = await this.mhs.get(this.options);
     this.movieInfo = result.data.results;
     console.log(JSON.stringify(this.movieInfo));
-/*
-    let result = await this.mhs.get(this.options);
-    this.movieInfo = result.options.results;
-    console.log(JSON.stringify(this.movieInfo));
-    */
   }
 
+  /*  method to route based on selected movie to the movie details page */
 
   async openMovieDetails(movie:any) {
     await this.mds.set("movie", movie);
     console.log(movie)
     this.router.navigate(['./moviedetails']);
   }
+
+  /* ionic lifecycle hooks */  
+  ionViewWillEnter() { 
+    console.log("MoviesPage ionViewWillEnter()") 
+  } 
+  ionViewDidEnter() { 
+    console.log("MoviesPage ionViewDidEnter()") 
+  } 
+  ionViewWillLeave() { 
+    console.log("MoviesPage ionViewWillLeave()") 
+  } 
+  ionViewDidLeave() { 
+    console.log("MoviesPage ionViewDidLeave()") 
+  } 
+  ngOnDestroy() { 
+    console.log("MoviesPage ngOnDestroy()") 
+  } 
 
 }

@@ -1,12 +1,33 @@
+
+/* Coding taken and adapted from examples from class lectures */
+
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>Movie Details - {{movieDetails.original_title}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
+/*  Displays details of selected movie based on user's keyword are displayed
+    Return button to home page is available 
+*/
+
 <ion-content [fullscreen]="true">
-  <ion-list>
-    <ion-item *ngFor = "let detail of movieAttrs">{{detail}}</ion-item>
+  
+  <ion-card>
     <ion-button (click)="homePage()">Home</ion-button>
-  </ion-list>
+    <ion-button (click)="openMovieCreditDetails(movieId)" >Movie Credits</ion-button>
+    
+    <ion-card-header>
+      <ion-card-title>{{movieDetails.original_title}}</ion-card-title>
+    </ion-card-header>
+    <ion-list>{{this.movieDetails.overview}}</ion-list>
+    <img src = "https://image.tmdb.org/t/p/w500/{{movieDetails.poster_path}} width='50' height='100'">
+  </ion-card>
+  
+  
 </ion-content>
+
+
+
+    
+    

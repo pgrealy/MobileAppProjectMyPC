@@ -1,0 +1,21 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Movie Credits</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  
+  <ion-card>
+    <ion-button (click)="homePage()">Home</ion-button>
+        
+    <ion-card-header>
+      <ion-card-title>{{movieDetails.original_title}}</ion-card-title>
+    </ion-card-header>
+    <ion-list>
+      <ion-item *ngFor = "let c of movieAttrs">{{c}}</ion-item>
+    </ion-list>
+  </ion-card>
+  
+  
+</ion-content>

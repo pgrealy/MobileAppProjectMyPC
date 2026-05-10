@@ -26,4 +26,12 @@ export const routes: Routes = [
     path: 'details',
     loadComponent: () => import('./details/details.page').then( m => m.DetailsPage)
   },
+  {
+    path: 'moviecredits',
+    loadComponent: () => import('./moviecredits/moviecredits.page').then( m => m.MoviecreditsPage)
+  },
+  {
+    path: 'favourites',
+    loadComponent: () => import('./favourites/favourites.page').then( m => m.FavouritesPage)
+  },
 ];

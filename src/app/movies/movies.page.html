@@ -1,8 +1,15 @@
+/* Coding taken and adapted from examples from class lectures */
+
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>Movies</ion-title>
   </ion-toolbar>
 </ion-header>
+
+
+/*  a list of movies based on user's keyword are displayed
+    When movie image is clicked with mouse, application routes to movie details 
+*/
 
 <ion-content [fullscreen]="true">
   <ion-card (click)="openMovieDetails(movie)" *ngFor="let movie of movieInfo">
